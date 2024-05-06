@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AlpineJS</title>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.13.10/dist/cdn.min.js"></script>
+    <script src="app.js"></script>
+
+</head>
+
+<body>
+    <!--x-data,x-text , x-html-->
+    <div x-data="{name: 'Zura',message:'heelo <b>word</b>'}">
+        <p x-text="name"></p>
+        <p x-html="message"></p>
+    </div>
+    <div x-data="" x-text="await (await fetch('https://jsonplaceholder.typicode.com/todos/1')).text()">
+
+    </div>
+
+    <!--x-data with methods-->
+    <div x-data="{
+        message:'Click to change',
+        change(){
+            this.message = 'Change message'
+        }
+    }">
+        <span x-text="message" @click="change()"></span>
+    </div>
+
+
+    <!--Re-usable Data-->
+    <div  x-data="dropdown">
+        <button @click="toggle">Open/Close</button>
+        <div x-show="open">
+            content ..
+        </div>
+
+    </div>
+
+    <!--Data-Less components-->
+    <div x-data="" @click="alert('Something')">
+        Click me
+
+    </div>
+
+    <!--Data Coming from Store-->
+    <div x-data x-text="$store.currentUser.posts"></div>
+
+    <!--X-init-->
+    <div x-init="console.log('init')"></div>
+    <div x-data="init()
+    {
+        console.log('I aminicilize')
+    }">
+
+    </div>
+
+    <div
+     x-data="{todo: {}}"
+     x-init="todo =await (await fetch('https://jsonplaceholder.typicode.com/todos/1')).json()"
+     >
+        <p x-text="todo.title"></p>
+    </div>
+
+    <!--Scoping-->
+    <div x-data="{name:'junior',age:30,gender:'male'}">
+        <div  x-data="{name: 'Mary'}">
+            <p x-text="name"></p>
+        </div>
+    </div>
+
+    <!--Getter & Setters -->
+    <div  x-data="{
+        open:false,
+        get isOpen(){
+            return this.open
+        },
+        set isOpen(open){
+            this.open = open
+        },
+        toggle(){
+            this.isOpen = !this.isOpen
+        }
+    }">
+        <button @click="toggle">Open/Close</button>
+        <div x-show="open">
+            content ..
+        </div>
+
+    </div>
+
+    <!--x-show & x-transition-->
+    <div  x-data="{
+        open:false,
+        toggle(){
+            this.open = !this.open
+        }
+    }">
+        <button @click="toggle">Open/Close</button>
+        <div x-show="open" x-transition:enter.duration.200ms  x-transition:leave.duration.2000ms >
+            content ..
+        </div>
+
+    </div>
+
+    <!--x-if-->
+
+    <div  x-data="{
+        open:false,
+        toggle(){
+            this.open = !this.open
+        }
+    }">
+        <button @click="toggle">Open/Close</button>
+        <template x-if="open">
+            <div>
+                content ..
+            </div>
+            <div >
+                clique ..
+            </div>
+        </template>
+      
+
+    </div>
+
+
+
+
+
+    
+
+</body>
+
+</html>
