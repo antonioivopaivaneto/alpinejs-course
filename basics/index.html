@@ -32,7 +32,7 @@
 
 
     <!--Re-usable Data-->
-    <div  x-data="dropdown">
+    <div x-data="dropdown">
         <button @click="toggle">Open/Close</button>
         <div x-show="open">
             content ..
@@ -58,22 +58,19 @@
 
     </div>
 
-    <div
-     x-data="{todo: {}}"
-     x-init="todo =await (await fetch('https://jsonplaceholder.typicode.com/todos/1')).json()"
-     >
+    <div x-data="{todo: {}}" x-init="todo =await (await fetch('https://jsonplaceholder.typicode.com/todos/1')).json()">
         <p x-text="todo.title"></p>
     </div>
 
     <!--Scoping-->
     <div x-data="{name:'junior',age:30,gender:'male'}">
-        <div  x-data="{name: 'Mary'}">
+        <div x-data="{name: 'Mary'}">
             <p x-text="name"></p>
         </div>
     </div>
 
     <!--Getter & Setters -->
-    <div  x-data="{
+    <div x-data="{
         open:false,
         get isOpen(){
             return this.open
@@ -93,14 +90,14 @@
     </div>
 
     <!--x-show & x-transition-->
-    <div  x-data="{
+    <div x-data="{
         open:false,
         toggle(){
             this.open = !this.open
         }
     }">
         <button @click="toggle">Open/Close</button>
-        <div x-show="open" x-transition:enter.duration.200ms  x-transition:leave.duration.2000ms >
+        <div x-show="open" x-transition:enter.duration.200ms x-transition:leave.duration.2000ms>
             content ..
         </div>
 
@@ -108,7 +105,7 @@
 
     <!--x-if-->
 
-    <div  x-data="{
+    <div x-data="{
         open:false,
         toggle(){
             this.open = !this.open
@@ -119,11 +116,52 @@
             <div>
                 content ..
             </div>
-            <div >
+            <div //>
                 clique ..
             </div>
         </template>
-      
+
+
+    </div>
+
+    <!--x-for-->
+    <div x-data="{posts: [{id:1, title:'post 1'},{id:2, title: 'post 2'}]}">
+        <template x-for="p in posts" :key="p.id">
+            <h2 x-text="p.id + ' '+ p.title"></h2>
+        </template>
+    </div>
+
+    <!--x-for in range-->
+    <div x-data="">
+        <template x-for="n in 5 ">
+            <p x-text="n"></p>
+
+        </template>
+    </div>
+
+    <!--x-bind: class-->
+    <div x-data="{clicked:false}">
+        <button class="bordered" x-bind:class="clicked ? 'yellow': '' " @click="clicked = true"> Click me</button>
+
+    </div>
+    <div x-data="{clicked:false}">
+        <button class="bordered" :class="{yellow: clicked}" @click="clicked = true"> Click me</button>
+
+    </div>
+    <style>
+        .bordered {
+            border: 2px solid brown;
+        }
+
+        .yellow {
+            background-color: yellow;
+
+        }
+    </style>
+    <!--x-bind: style-->
+
+    <div x-data="{clicked:false}">
+        <button style="color:green" :style="{backgroundColor: clicked ? 'red' : ''}" @click="clicked = !clicked"> Click me</button>
 
     </div>
 
@@ -131,7 +169,13 @@
 
 
 
-    
+
+
+
+
+
+
+
 
 </body>
 
